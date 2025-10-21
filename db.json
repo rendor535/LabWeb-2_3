@@ -1,0 +1,54 @@
+{
+  "posts": [
+    {
+      "userId": 1,
+      "id": 1,
+      "title": "Moje książki, które czytałem (całe 2)",
+      "book1": "Albert Camus - Cudzoziemiec",
+      "book2": "Witold Gombrowicz - Pornografia",
+      "rating": 8
+    },
+    {
+      "userId": 2,
+      "id": 2,
+      "title": "Ulubione lektury z liceum",
+      "book1": "George Orwell - Rok 1984",
+      "book2": "Franz Kafka - Proces",
+      "rating": 9
+    },
+    {
+      "userId": 3,
+      "id": 3,
+      "title": "Nowe książki na półce",
+      "book1": "Stanisław Lem - Solaris",
+      "book2": "Andrzej Sapkowski - Ostatnie życzenie",
+      "rating": 10
+    }
+  ],
+  "comments": [
+    {
+      "postId": 1,
+      "id": 1,
+      "author": "Jan",
+      "text": "Też lubię Camusa. Cudzoziemiec to klasyk (Dobry książka, ale trochę za bardzo przechwalana. Tematy są głębokie i dobrze przedstawione w fabule. Ale Camus ma lepsze książki, serio, i nie ...)."
+    },
+    {
+      "postId": 1,
+      "id": 2,
+      "author": "Ewa",
+      "text": "Pornografia Gombrowicza to ciężka, ale ciekawa lektura. (2 stare dziadki się ekscytują młodymi ludzmi)"
+    },
+    {
+      "postId": 2,
+      "id": 3,
+      "author": "Krzysztof",
+      "text": "Rok 1984 to przerażająco aktualna książka, Tusk mnie prześladuje"
+    },
+    {
+      "postId": 3,
+      "id": 4,
+      "author": "Anna",
+      "text": "Solaris mnie zachwycił. Lem był geniuszem a ja go nie czytałem"
+    }
+  ]
+}
