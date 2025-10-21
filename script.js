@@ -99,7 +99,7 @@
     fetch('https://jsonplaceholder.typicode.com/posts/1')
       .then(response => response.json())
       .then(post => {
-
+        console.log(post);
         let html = `
           <style>
             .single-post {
