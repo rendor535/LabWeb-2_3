@@ -173,10 +173,50 @@
       });
   });
 
-
   cw3.addEventListener("click", function() {
-    //TODO
+    answer.innerHTML = '<p><em>Loading...</em></p>';
 
-  })
+    Promise.all([
+      fetch('https://my-json-server.typicode.com/rendor535/LabWeb-2_3/posts').then(res => res.json()),
+      fetch('https://my-json-server.typicode.com/rendor535/LabWeb-2_3/comments').then(res => res.json())
+    ])
+      .then(([posts, comments]) => {
+        let html = '<h2>Posty</h2>';
+
+        posts.forEach(post => {
+          html += `
+                               <div style="
+                                 border: 2px solid #666;
+                                 border-radius: 8px;
+                                 padding: 10px;
+                                 background-color: #f0f9ff;
+                                 margin-bottom: 15px;
+                               ">
+                                 <h3>${post.id}. ${post.title}</h3>
+                                 <p><strong>Book1:</strong> ${post.book1 || '-'}</p>
+                                 <p><strong>Book2:</strong> ${post.book2 || '-'}</p>
+                                 <p><strong>Ocena:</strong> ${post.rating || '-'}</p>
+                                 <h4>Komentarze:</h4>
+                                 <ul style="list-style:none; padding-left:0; margin-top:5px;">
+                             `;
+
+          comments.filter(c => c.postId === post.id).forEach(comment => {
+            html += `
+                                 <li style="border-top:1px solid #ccc; margin-top:5px; padding-top:5px;">
+                                   <strong>${comment.author}:</strong> ${comment.text}
+                                 </li>
+                               `;
+          });
+
+          html += '</ul></div>';
+        });
+
+        answer.innerHTML = html;
+      })
+      .catch(error => {
+        console.error(error);
+        answer.innerHTML = '<p>Błąd podczas pobierania danych.</p>';
+      });
+  });
 
 })();
