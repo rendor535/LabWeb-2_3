@@ -95,48 +95,84 @@
   });
 
   cw2.addEventListener("click", function() {
-    alert('Loading...');
+    const loadingDiv = document.createElement('div');
+    loadingDiv.id = 'loading-overlay';
+    loadingDiv.style.position = 'fixed';
+    loadingDiv.style.top = '0';
+    loadingDiv.style.left = '0';
+    loadingDiv.style.width = '100%';
+    loadingDiv.style.height = '100%';
+    loadingDiv.style.background = 'rgba(0, 0, 0, 0.5)';
+    loadingDiv.style.display = 'flex';
+    loadingDiv.style.alignItems = 'center';
+    loadingDiv.style.justifyContent = 'center';
+    loadingDiv.style.zIndex = '9999';
+    loadingDiv.innerHTML = `
+      <div style="
+        background: white;
+        padding: 20px 40px;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      ">
+        Loading...
+      </div>
+    `;
+    document.body.appendChild(loadingDiv);
+    const startTime = Date.now();
+
     fetch('https://jsonplaceholder.typicode.com/posts/1')
       .then(response => response.json())
       .then(post => {
         console.log(post);
-        let html = `
-          <style>
-            .single-post {
-              border: 6px solid #666;
-              border-radius: 8px;
-              padding: 10px;
-              background-color: #b7e6c3ff;
-              box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
-              width: 60%;
-              margin: 10px auto;
-            }
-            .single-post strong {
-              font-size: 18px;
-              color: #222;
-            }
-            .single-post em {
-              font-size: 12px;
-              color: #555;
-            }
-            .single-post p {
-              font-size: 14px;
-            }
-          </style>
-          <div class="single-post">
-            <h2>Post ID: ${post.id}</h2>
-            <strong>${post.title}</strong><br>
-            <em>userId: ${post.userId}</em><br>
-            <p>${post.body}</p>
-          </div>
-        `;
-        answer.innerHTML = html;
+
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, 1000 - elapsed); // minimum 1 sekunda
+
+        setTimeout(() => {
+          document.body.removeChild(loadingDiv);
+          let html = `
+            <style>
+              .single-post {
+                border: 6px solid #666;
+                border-radius: 8px;
+                padding: 10px;
+                background-color: #b7e6c3ff;
+                box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+                width: 60%;
+                margin: 10px auto;
+              }
+              .single-post strong {
+                font-size: 18px;
+                color: #222;
+              }
+              .single-post em {
+                font-size: 12px;
+                color: #555;
+              }
+              .single-post p {
+                font-size: 14px;
+              }
+            </style>
+            <div class="single-post">
+              <h2>Post ID: ${post.id}</h2>
+              <strong>${post.title}</strong><br>
+              <em>userId: ${post.userId}</em><br>
+              <p>${post.body}</p>
+            </div>
+          `;
+          answer.innerHTML = html;
+        }, remaining);
       })
       .catch(error => {
         console.error(error);
+        document.body.removeChild(loadingDiv);
         answer.innerHTML = '<p>Błąd podczas pobierania danych.</p>';
       });
   });
+
 
   cw3.addEventListener("click", function() {
     //TODO
