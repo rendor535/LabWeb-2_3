@@ -15,22 +15,30 @@
   })
 
   cw1.addEventListener("click", function() {
+    answer.innerHTML = '<p><em>Loading...</em></p>';
+    const startTime = Date.now();
+
     fetch('https://jsonplaceholder.typicode.com/posts')
       .then(response => response.json())
       .then(posts => {
-        let html = '<h2>Lista postów</h2>';
-        html += '<ul style="list-style:none; padding:0;">';
-        posts.forEach(post => {
-          html += `
-            <li style="margin-bottom:15px; border-bottom:1px solid #ccc; padding-bottom:10px;">
-              <strong>${post.id}. ${post.title}</strong><br>
-              <em>userId: ${post.userId}</em><br>
-              <p>${post.body}</p>
-            </li>
-          `;
-        });
-        html += '</ul>';
-        answer.innerHTML = html;
+        const elapsed = Date.now() - startTime;
+        const delay = Math.max(0, 500 - elapsed);
+
+        setTimeout(() => {
+          let html = '<h2>Lista postów</h2>';
+          html += '<ul style="list-style:none; padding:0;">';
+          posts.forEach(post => {
+            html += `
+              <li style="margin-bottom:15px; border-bottom:1px solid #ccc; padding-bottom:10px;">
+                <strong>${post.id}. ${post.title}</strong><br>
+                <em>userId: ${post.userId}</em><br>
+                <p>${post.body}</p>
+              </li>
+            `;
+          });
+          html += '</ul>';
+          answer.innerHTML = html;
+        }, delay);
       })
       .catch(error => {
         console.error(error);
