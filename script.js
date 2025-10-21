@@ -2,6 +2,7 @@
   const example = document.getElementById('example')
   const cw1 = document.getElementById('cw1')
   const cw1_pojedynczy = document.getElementById('cw1_pojedynczy')
+  const cw1_nowy = document.getElementById('cw1_nowy')
   const cw2 = document.getElementById('cw2')
   const cw3 = document.getElementById('cw3')
   const answer = document.getElementById('answer')
@@ -66,6 +67,33 @@
         answer.innerHTML = '<p>Błąd podczas pobierania danych.</p>';
       });
   });
+
+  cw1_nowy.addEventListener("click", async function() {
+    answer.innerHTML = '<p><em>Processing...</em></p>';
+
+    try {
+      const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          title: 'Nowy post testowy',
+          body: 'To jest przykładowa treść posta utworzonego metodą POST.',
+          userId: 1
+        }),
+      });
+
+      const data = await res.json();
+      console.log(data);
+
+      answer.innerHTML = `<p>Dodano nowy post o ID = ${data.id}</p>`;
+    } catch (error) {
+      console.error(error);
+      answer.innerHTML = '<p>Błąd podczas wysyłania posta.</p>';
+    }
+  });
+
   cw2.addEventListener("click", function() {
     //TODO
 
