@@ -95,9 +95,47 @@
   });
 
   cw2.addEventListener("click", function() {
-    //TODO
-
-  })
+    fetch('https://jsonplaceholder.typicode.com/posts/1')
+      .then(response => response.json())
+      .then(post => {
+        console.log(post); // Com2_2.2
+        let html = `
+          <style>
+            .single-post {
+              border: 6px solid #666;
+              border-radius: 8px;
+              padding: 10px;
+              background-color: #b7e6c3ff;
+              box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+              width: 60%;
+              margin: 10px auto;
+            }
+            .single-post strong {
+              font-size: 18px;
+              color: #222;
+            }
+            .single-post em {
+              font-size: 12px;
+              color: #555;
+            }
+            .single-post p {
+              font-size: 14px;
+            }
+          </style>
+          <div class="single-post">
+            <h2>Post ID: ${post.id}</h2>
+            <strong>${post.title}</strong><br>
+            <em>userId: ${post.userId}</em><br>
+            <p>${post.body}</p>
+          </div>
+        `;
+        answer.innerHTML = html;
+      })
+      .catch(error => {
+        console.error(error);
+        answer.innerHTML = '<p>Błąd podczas pobierania danych.</p>';
+      });
+  });
 
   cw3.addEventListener("click", function() {
     //TODO
