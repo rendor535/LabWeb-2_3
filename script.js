@@ -95,10 +95,11 @@
   });
 
   cw2.addEventListener("click", function() {
+    alert('Loading...');
     fetch('https://jsonplaceholder.typicode.com/posts/1')
       .then(response => response.json())
       .then(post => {
-        console.log(post); // Com2_2.2
+
         let html = `
           <style>
             .single-post {
