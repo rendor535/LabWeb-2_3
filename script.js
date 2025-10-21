@@ -1,6 +1,7 @@
 (function() {
   const example = document.getElementById('example')
   const cw1 = document.getElementById('cw1')
+  const cw1_pojedynczy = document.getElementById('cw1_pojedynczy')
   const cw2 = document.getElementById('cw2')
   const cw3 = document.getElementById('cw3')
   const answer = document.getElementById('answer')
@@ -46,6 +47,25 @@
       });
   });
 
+  cw1_pojedynczy.addEventListener("click", function() {
+    answer.innerHTML = '<p><em>Loading...</em></p>';
+
+    fetch('https://jsonplaceholder.typicode.com/posts/67')
+      .then(response => response.json())
+      .then(post => {
+        let html = `
+          <h2>Post ID: ${post.id}</h2>
+            <strong>${post.title}</strong><br>
+            <em>userId: ${post.userId}</em><br>
+            <p>${post.body}</p>
+        `;
+        answer.innerHTML = html;
+      })
+      .catch(error => {
+        console.error(error);
+        answer.innerHTML = '<p>Błąd podczas pobierania danych.</p>';
+      });
+  });
   cw2.addEventListener("click", function() {
     //TODO
 
